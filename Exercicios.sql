@@ -1,3 +1,8 @@
+
+/* a) Faça um código SQL que exiba as vendas por: Nome do funcionário - 
+    deve exibir todas as mesas atendidas pelo funcionário
+    e o valor total gasto pelo cliente (3 colunas no resultado). */
+
 SELECT f.nome AS nome_funcionario,
     m.id_mesa,
     SUM(v.valor_total) AS total_vendido
@@ -9,6 +14,8 @@ JOIN Venda v
 GROUP BY f.nome, m.id_mesa
 ORDER BY f.nome, m.id_mesa;
     
+    /* b) Faça um código SQL que exiba todos os produtos
+     que uma determinada mesa pediu/consumiu. */
     
 SELECT pr.descricao AS produto,
     pp.quantidade,
@@ -21,6 +28,7 @@ JOIN Pedido_Produto pp
 JOIN Produto pr ON pp.id_produto = pr.id_produto
 WHERE m.id_mesa = 1;
 
+    /* c) Implemente uma "stored procedure" que redefina o status de uma Mesa para o Status "Livre". */
 
 DELIMITER $$
 CREATE PROCEDURE redefinir_status_livre(IN mesa_id INT)
@@ -31,6 +39,9 @@ BEGIN
 END$$
 DELIMITER ;
 
+CALL redefinir_status_livre(1);
+
+SELECT * FROM Mesa WHERE id_mesa = 1;
 
 
 
